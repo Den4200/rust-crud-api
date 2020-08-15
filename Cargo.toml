@@ -1,5 +1,5 @@
 [package]
-name = "rust-crud-api"
+name = "rust_crud_api"
 version = "0.1.0"
 authors = ["Den4200 <dennis@dennispham.me>"]
 edition = "2018"
