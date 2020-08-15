@@ -1,1 +1,1 @@
-pub use hero;
+pub mod hero;
