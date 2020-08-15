@@ -1,14 +1,14 @@
-use rocket_contrib::json::{Json, JsonValue}
+use rocket_contrib::json::{Json, JsonValue};
 
 use crate::models::hero::Hero;
 
 #[post("/", format = "json", data = "<hero>")]
-fn create_hero(hero: Json<Hero>) -> Json<Hero> {
+pub fn create_hero(hero: Json<Hero>) -> Json<Hero> {
     hero
 }
 
 #[get{"/"}]
-fn get_heros() -> JsonValue {
+pub fn get_heroes() -> JsonValue {
     json!([
         "hero 1",
         "hero 2",
@@ -17,11 +17,11 @@ fn get_heros() -> JsonValue {
 }
 
 #[put("/<id>", format = "json", data = "<hero>")]
-fn update_hero(id: u32, hero: Json<Hero>) -> Json<Hero> {
+pub fn update_hero(id: u32, hero: Json<Hero>) -> Json<Hero> {
     hero
 }
 
 #[delete("/<id>")]
-fn delete_hero(id: u32) -> JsonValue {
+pub fn delete_hero(id: u32) -> JsonValue {
     json!({"status": "ok"})
 }
