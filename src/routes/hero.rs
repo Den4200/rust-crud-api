@@ -1,7 +1,7 @@
 use rocket_contrib::json::{Json, JsonValue};
 
 use crate::db;
-use crate::models::hero::{Hero, NewHero};
+use crate::models::hero::{Hero, NewHero, UpdatedHero};
 
 #[post("/", format = "json", data = "<hero>")]
 pub fn create_hero(hero: Json<NewHero>, conn: db::Conn) -> Json<Hero> {
@@ -15,10 +15,10 @@ pub fn get_heroes(conn: db::Conn) -> JsonValue {
 }
 
 #[put("/<id>", format = "json", data = "<hero>")]
-pub fn update_hero(id: i32, hero: Json<Hero>, conn: db::Conn) -> JsonValue {
-    let update = Hero { id, ..hero.into_inner() };
+pub fn update_hero(id: i32, hero: Json<UpdatedHero>, conn: db::Conn) -> JsonValue {
+    let update = UpdatedHero { ..hero.into_inner() };
     json!({
-        "success": Hero::update(id, update, &conn)
+        "success": Hero::update(id, &update, &conn)
     })
 }
 

@@ -23,6 +23,15 @@ pub struct NewHero<'a> {
     pub age: i32
 }
 
+#[table_name = "heroes"]
+#[derive(Deserialize, AsChangeset)]
+pub struct UpdatedHero {
+    pub name: Option<String>,
+    pub identity: Option<String>,
+    pub hometown: Option<String>,
+    pub age: Option<i32>
+}
+
 impl Hero {
 
     pub fn create(hero: NewHero, connection: &SqliteConnection) -> Hero {
@@ -38,8 +47,8 @@ impl Hero {
         heroes::table.order(heroes::id.asc()).load::<Hero>(connection).unwrap()
     }
 
-    pub fn update(id: i32, hero: Hero, connection: &SqliteConnection) -> bool {
-        diesel::update(heroes::table.find(id)).set(&hero).execute(connection).is_ok()
+    pub fn update(id: i32, hero: &UpdatedHero, connection: &SqliteConnection) -> bool {
+        diesel::update(heroes::table.find(id)).set(hero).execute(connection).is_ok()
     }
 
     pub fn delete(id: i32, connection: &SqliteConnection) -> bool {
