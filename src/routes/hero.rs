@@ -23,7 +23,15 @@ pub fn get_hero(id: i32, conn: db::Conn) -> JsonValue {
 pub fn patch_hero(id: i32, hero: Json<UpdatedHero>, conn: db::Conn) -> JsonValue {
     let update = UpdatedHero { ..hero.into_inner() };
     json!({
-        "success": Hero::update(id, &update, &conn)
+        "success": Hero::partial_update(id, &update, &conn)
+    })
+}
+
+#[put{"/<id>", format = "json", data = "<hero>"}]
+pub fn put_hero(id: i32, hero: Json<NewHero>, conn: db::Conn) -> JsonValue {
+    let replacement = NewHero { ..hero.into_inner() };
+    json!({
+        "success": Hero::update(id, &replacement, &conn)
     })
 }
 
