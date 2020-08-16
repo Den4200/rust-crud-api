@@ -14,7 +14,7 @@ pub struct Hero {
 }
 
 #[table_name = "heroes"]
-#[derive(Deserialize, Insertable, AsChangeset)]
+#[derive(AsChangeset, Deserialize, Insertable)]
 pub struct NewHero<'a> {
     pub name: &'a str,
     pub identity: &'a str,
@@ -23,7 +23,7 @@ pub struct NewHero<'a> {
 }
 
 #[table_name = "heroes"]
-#[derive(Deserialize, AsChangeset)]
+#[derive(AsChangeset, Deserialize)]
 pub struct PartialHero {
     pub name: Option<String>,
     pub identity: Option<String>,
