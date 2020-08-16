@@ -5,11 +5,21 @@ extern crate rocket;
 #[macro_use]
 extern crate rocket_contrib;
 
+#[macro_use]
+extern crate diesel;
+
+use dotenv::dotenv;
+
+mod config;
+mod db;
 mod models;
 mod routes;
+mod schema;
 
 pub fn rocket() -> rocket::Rocket {
-    rocket::ignite()
+    dotenv().ok();
+
+    rocket::custom(config::from_env())
         .mount(
             "/heroes",
             routes![
@@ -19,4 +29,6 @@ pub fn rocket() -> rocket::Rocket {
                 routes::hero::delete_hero
             ]
         )
+        .attach(db::Conn::fairing())
+        .attach(config::AppState::manage())
 }
