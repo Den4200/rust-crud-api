@@ -4,8 +4,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::schema::heroes;
 
-#[table_name = "heroes"]
-#[derive(AsChangeset, Deserialize, Serialize, Queryable, Insertable)]
+#[derive(Serialize, Queryable)]
 pub struct Hero {
     pub id: i32,
     pub name: String,
