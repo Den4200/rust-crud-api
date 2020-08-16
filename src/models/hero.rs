@@ -33,24 +33,24 @@ pub struct UpdatedHero {
 
 impl Hero {
 
-    pub fn create(hero: NewHero, connection: &SqliteConnection) -> Hero {
+    pub fn create(hero: NewHero, conn: &SqliteConnection) -> Hero {
         diesel::insert_into(heroes::table)
             .values(&hero)
-            .execute(connection)
+            .execute(conn)
             .expect("Error creating new hero");
 
-        heroes::table.order(heroes::id.desc()).first(connection).unwrap()
+        heroes::table.order(heroes::id.desc()).first(conn).unwrap()
     }
 
-    pub fn read(connection: &SqliteConnection) -> Vec<Hero> {
-        heroes::table.order(heroes::id.asc()).load::<Hero>(connection).unwrap()
+    pub fn read(conn: &SqliteConnection) -> Vec<Hero> {
+        heroes::table.order(heroes::id.asc()).load::<Hero>(conn).unwrap()
     }
 
-    pub fn update(id: i32, hero: &UpdatedHero, connection: &SqliteConnection) -> bool {
-        diesel::update(heroes::table.find(id)).set(hero).execute(connection).is_ok()
+    pub fn update(id: i32, hero: &UpdatedHero, conn: &SqliteConnection) -> bool {
+        diesel::update(heroes::table.find(id)).set(hero).execute(conn).is_ok()
     }
 
-    pub fn delete(id: i32, connection: &SqliteConnection) -> bool {
-        diesel::delete(heroes::table.find(id)).execute(connection).is_ok()
+    pub fn delete(id: i32, conn: &SqliteConnection) -> bool {
+        diesel::delete(heroes::table.find(id)).execute(conn).is_ok()
     }
 }
