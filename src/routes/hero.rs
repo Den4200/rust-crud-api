@@ -1,11 +1,11 @@
 use rocket_contrib::json::{Json, JsonValue};
 
 use crate::db;
-use crate::models::hero::Hero;
+use crate::models::hero::{Hero, NewHero};
 
 #[post("/", format = "json", data = "<hero>")]
-pub fn create_hero(hero: Json<Hero>, conn: db::Conn) -> Json<Hero> {
-    let insert = Hero { ..hero.into_inner() };
+pub fn create_hero(hero: Json<NewHero>, conn: db::Conn) -> Json<Hero> {
+    let insert = NewHero { ..hero.into_inner() };
     Json(Hero::create(insert, &conn))
 }
 

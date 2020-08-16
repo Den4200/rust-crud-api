@@ -14,9 +14,18 @@ pub struct Hero {
     pub age: i32
 }
 
+#[table_name = "heroes"]
+#[derive(Deserialize, Insertable)]
+pub struct NewHero<'a> {
+    pub name: &'a str,
+    pub identity: &'a str,
+    pub hometown: &'a str,
+    pub age: i32
+}
+
 impl Hero {
 
-    pub fn create(hero: Hero, connection: &SqliteConnection) -> Hero {
+    pub fn create(hero: NewHero, connection: &SqliteConnection) -> Hero {
         diesel::insert_into(heroes::table)
             .values(&hero)
             .execute(connection)
