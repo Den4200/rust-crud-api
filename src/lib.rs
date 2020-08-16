@@ -23,9 +23,9 @@ pub fn rocket() -> rocket::Rocket {
         .mount(
             "/heroes",
             routes![
-                routes::hero::post_hero,
-                routes::hero::get_heroes,
                 routes::hero::get_hero,
+                routes::hero::get_heroes,
+                routes::hero::post_hero,
                 routes::hero::patch_hero,
                 routes::hero::put_hero,
                 routes::hero::delete_hero
