@@ -24,7 +24,7 @@ pub struct NewHero<'a> {
 
 #[table_name = "heroes"]
 #[derive(Deserialize, AsChangeset)]
-pub struct UpdatedHero {
+pub struct PartialHero {
     pub name: Option<String>,
     pub identity: Option<String>,
     pub hometown: Option<String>,
@@ -50,7 +50,7 @@ impl Hero {
         heroes::table.order(heroes::id.asc()).load::<Hero>(conn).unwrap()
     }
 
-    pub fn partial_update(id: i32, hero: &UpdatedHero, conn: &SqliteConnection) -> bool {
+    pub fn partial_update(id: i32, hero: &PartialHero, conn: &SqliteConnection) -> bool {
         diesel::update(heroes::table.find(id)).set(hero).execute(conn).is_ok()
     }
 
