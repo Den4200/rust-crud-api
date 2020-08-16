@@ -33,6 +33,10 @@ pub struct UpdatedHero {
 
 impl Hero {
 
+    pub fn get(id: i32, conn: &SqliteConnection) -> Hero {
+        heroes::table.find(id).first::<Hero>(conn).unwrap()
+    }
+
     pub fn create(hero: NewHero, conn: &SqliteConnection) -> Hero {
         diesel::insert_into(heroes::table)
             .values(&hero)

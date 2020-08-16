@@ -14,6 +14,11 @@ pub fn get_heroes(conn: db::Conn) -> JsonValue {
     json!(Hero::read(&conn))
 }
 
+#[get{"/<id>"}]
+pub fn get_hero(id: i32, conn: db::Conn) -> JsonValue {
+    json!(Hero::get(id, &conn))
+}
+
 #[put("/<id>", format = "json", data = "<hero>")]
 pub fn update_hero(id: i32, hero: Json<UpdatedHero>, conn: db::Conn) -> JsonValue {
     let update = UpdatedHero { ..hero.into_inner() };

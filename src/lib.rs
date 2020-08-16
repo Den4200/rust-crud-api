@@ -25,6 +25,7 @@ pub fn rocket() -> rocket::Rocket {
             routes![
                 routes::hero::create_hero,
                 routes::hero::get_heroes,
+                routes::hero::get_hero,
                 routes::hero::update_hero,
                 routes::hero::delete_hero
             ]
