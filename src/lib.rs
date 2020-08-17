@@ -10,6 +10,7 @@ extern crate diesel;
 
 use dotenv::dotenv;
 
+mod auth;
 mod config;
 mod db;
 mod models;
