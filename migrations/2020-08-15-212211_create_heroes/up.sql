@@ -4,5 +4,4 @@ CREATE TABLE heroes (
     identity VARCHAR(60) NOT NULL,
     hometown VARCHAR(60) NOT NULL,
     age INT(11) NOT NULL
-
 )
