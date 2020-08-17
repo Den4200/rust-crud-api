@@ -35,7 +35,7 @@ impl User {
         }
     }
 
-    pub fn create(user: &NewUser, conn: &SqliteConnection) -> User {
+    pub fn create(user: &NewUser, conn: &SqliteConnection) -> Result<User, UserCreationError> {
         let password = &scrypt_simple(user.password, &ScryptParams::new(14, 8, 1)).expect("Password hasing error.");
         user = NewUser { password, ..user }
 
@@ -44,7 +44,7 @@ impl User {
             .execute(conn)
             .expect("Error creating new hero");
 
-        users::table.order(users::id.desc()).first(conn).unwrap()
+        users::table.order(users::id.desc()).first(conn).map_err(Into::into)
     }
 }
 
