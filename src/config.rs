@@ -6,6 +6,9 @@ use std::env;
 /// Debug-only secret for JWT encoding & decoding.
 const SECRET: &'static str = "UhL2qJixHytkintEoTidJWaf9tzn0pDrSurEWYArbW8";
 
+/// Token expiration time (days)
+const TOKEN_TTL: i64 = 365;
+
 pub struct AppState {
     pub secret: Vec<u8>
 }
