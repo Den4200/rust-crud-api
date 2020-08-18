@@ -3,12 +3,12 @@ use rocket_contrib::json::{Json, JsonValue};
 use crate::db;
 use crate::models::hero::{Hero, NewHero, PartialHero};
 
-#[get{"/<id>"}]
+#[get("/<id>")]
 pub fn get_hero(id: i32, conn: db::Conn) -> JsonValue {
     json!(Hero::get(id, &conn))
 }
 
-#[get{"/"}]
+#[get("/")]
 pub fn get_heroes(conn: db::Conn) -> JsonValue {
     json!(Hero::read(&conn))
 }
@@ -19,7 +19,7 @@ pub fn post_hero(hero: Json<NewHero>, conn: db::Conn) -> Json<Hero> {
     Json(Hero::create(insert, &conn))
 }
 
-#[patch{"/<id>", format = "json", data = "<hero>"}]
+#[patch("/<id>", format = "json", data = "<hero>")]
 pub fn patch_hero(id: i32, hero: Json<PartialHero>, conn: db::Conn) -> JsonValue {
     let update = PartialHero { ..hero.into_inner() };
     json!({
@@ -27,7 +27,7 @@ pub fn patch_hero(id: i32, hero: Json<PartialHero>, conn: db::Conn) -> JsonValue
     })
 }
 
-#[put{"/<id>", format = "json", data = "<hero>"}]
+#[put("/<id>", format = "json", data = "<hero>")]
 pub fn put_hero(id: i32, hero: Json<NewHero>, conn: db::Conn) -> JsonValue {
     let replacement = NewHero { ..hero.into_inner() };
     json!({
